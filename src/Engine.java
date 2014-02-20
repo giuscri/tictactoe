@@ -106,31 +106,63 @@ public class Engine {
 	
 	if (playerGoesFirst) {
 	
+	    System.out.println(player + " goes first.");
+	
             for (;!grid.isFull();) {
-
-                /*
-                 * We should cycle up to player
-                 * provides the coordinate of a
-                 * unset Cell.
-                 */
 
 	        // Ask for input ...
 		int rowIndex = 0;
 		int colIndex = 0;
-		Pattern p = Pattern.compile("([1-3]{1})(\\D+)([1-3]{1})");
-		Matcher m = p.matcher(c.readLine("<row_index>, <col_index>: "));
-		for (;m.find();) {
-		    // Parse input ...
-		    rowIndex = Integer.parseInt(m.group(1));
-		    colIndex = Integer.parseInt(m.group(3));
+		
+		for (;;) {
+
+		    System.out.print("Type coordinate of cell "
+		    + "you want to set (row[1-3] col[1-3]):\n"
+		    + ">>> ");
+		    
+		    Scanner in = new Scanner(System.in);
+		    Scanner lineBuffer = null;
+		    
+		    if (in.hasNextLine()) {
+		        lineBuffer =
+			new Scanner(in.nextLine()).useDelimiter("[\\s,;\\-]+");
+	            } else {
+		        System.err.println("\n<<<**Interpreting keyboard "
+			+ "signal as EOF. Bye.**");
+			System.exit(1);
+		    }
+		    
+		    try {rowIndex = lineBuffer.nextInt(); colIndex =lineBuffer.nextInt();}
+		    catch (NoSuchElementException ex) {
+		        System.err.println("<<< No valid input found.");
+			continue;
+		    }
+		    
+		    if (rowIndex > 3 || colIndex > 3) {
+		        System.err.println("<<< Coordinate "
+			+ new Coordinate(rowIndex,colIndex) + " "
+			+ "is out of range.");
+			continue;
+		    }
+		    
+		    else if (!grid.get(new Coordinate(rowIndex-1,colIndex-1)).isUnset()) {
+		        System.err.println("<<< Cell at coordinate "
+			+ new Coordinate(rowIndex,colIndex) + " "
+			+ "is already set.");
+			continue;
+		    }
+		    
+		    else {break;}
 		}
 		
 		// Update table with
 		// player's choice ...
 		grid.set(new Coordinate(rowIndex-1,colIndex-1), player.getFigure());
 		
+		/*
 		// Print current state of grid ...
 		System.out.println(grid);
+		*/
 		
 		if (anyWinningPathFor(player.getFigure())) {playerWins(); return;}
 		
@@ -178,6 +210,7 @@ public class Engine {
 		}
 		
 		// Print current state of grid ...
+		System.out.println();
 		System.out.println(grid);
 		
 		if (anyWinningPathFor(opponentFigure)) {playerLoses(); return;}
@@ -185,6 +218,8 @@ public class Engine {
 	    }
 	    
 	} else {
+	
+	    System.out.println(this + " goes first.");
 	    
 	    for (;!grid.isFull();) {
 	    
@@ -225,6 +260,7 @@ public class Engine {
 		}
 		
 		// Print current state of grid ...
+		System.out.println();
 		System.out.println(grid);
 		
 		if (anyWinningPathFor(opponentFigure)) {playerLoses(); return;}
@@ -238,20 +274,56 @@ public class Engine {
                 // Ask for input ...
 		int rowIndex = 0;
 		int colIndex = 0;
-		Pattern p = Pattern.compile("([1-3]{1})(\\D+)([1-3]{1})");
-		Matcher m = p.matcher(c.readLine("<row_index>, <col_index>: "));
-		for (;m.find();) {
-		    // Parse input ...
-		    rowIndex = Integer.parseInt(m.group(1));
-		    colIndex = Integer.parseInt(m.group(3));
+
+		for (;;) {
+
+		    System.out.print("Type coordinate of cell "
+		    + "you want to set (row[1-3] col[1-3]):\n"
+		    + ">>> ");
+		    
+		    Scanner in = new Scanner(System.in);
+		    Scanner lineBuffer = null;
+		    
+		    if (in.hasNextLine()) {
+		        lineBuffer =
+			new Scanner(in.nextLine()).useDelimiter("[\\s,;\\-]+");
+	            } else {
+		        System.err.println("\n<<<**Interpreting keyboard "
+			+ "signal as EOF. Bye.**");
+			System.exit(1);
+		    }
+		    
+		    try {rowIndex = lineBuffer.nextInt(); colIndex = lineBuffer.nextInt();}
+		    catch (NoSuchElementException ex) {
+		        System.err.println("<<< No valid input found.");
+			continue;
+		    }
+		    
+		    if (rowIndex > 3 || colIndex > 3) {
+		        System.err.println("<<< Coordinate "
+			+ new Coordinate(rowIndex,colIndex) + " "
+			+ "is out of range.");
+			continue;
+		    }
+		    
+		    else if (!grid.get(new Coordinate(rowIndex-1,colIndex-1)).isUnset()) {
+		        System.err.println("<<< Cell at coordinate "
+			+ new Coordinate(rowIndex,colIndex) + " "
+			+ "is already set.");
+			continue;
+		    }
+		    
+		    else {break;}
 		}
 		
 		// Update table with
 		// player's choice ...
 		grid.set(new Coordinate(rowIndex-1,colIndex-1), player.getFigure());
 		
+		/*
 		// Print current state of grid ...
 		System.out.print(grid + "\r");
+		*/
 		
 		if (anyWinningPathFor(player.getFigure())) {playerWins(); return;}
 		

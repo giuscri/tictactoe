@@ -68,15 +68,21 @@ public class Grid extends HashMap<Coordinate,Cell> implements Iterable<Cell> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-	int counter = 0;
-	for (Cell c : this) {
-	    if (++counter > 3) {
-	        sb.append("\n");
-		counter = 1;
+	
+	for (int i = 0; i < 3; i++) {
+	    for (int j = 0; j< 3; j++) {
+	        sb.append(" " + get(new Coordinate(i,j)) + " ");
+		if (j < 2) {
+		    sb.append("|");
+		}
 	    }
-	    sb.append(c);
-	    sb.append(" ");
+	    sb.append("\n");
+	    if (i < 2) {
+	        for (int counter = 0; counter++ < 3*3 +2; sb.append("-"));
+	    }
+	    sb.append("\n");
 	}
+	
 	return sb.toString();
     }
  
