@@ -10,10 +10,6 @@ public class Engine {
 	this.opponentFigure = new Circle();
     }
     
-    public Grid getGrid() {
-        return this.grid;
-    }
-    
     public Coordinate findCrucialCoordinateFor(Figure f) {
     
         if (anyWinningPathFor(f)) {return null;}
@@ -35,9 +31,7 @@ public class Engine {
 		    
 		}
 		
-		if (out!=null) {
-		    return new Coordinate(i,j);
-		}
+		if (out!=null) {return new Coordinate(i,j);}
 		
 	    }
 	}
@@ -80,8 +74,6 @@ public class Engine {
 	      grid.get(new Coordinate(1,1)).getFigure().equals(grid.get(new Coordinate(0,2)).getFigure());
 	      
 	return out; 
-	
-	
     }
     
     public void playerWins() {
@@ -90,6 +82,10 @@ public class Engine {
         
     public void playerLoses() {
         System.out.println(this + " has won.");
+    }
+
+    public void noOneWins() {
+        System.out.println("No one has won.");
     }
 
     public void play() {
@@ -108,13 +104,16 @@ public class Engine {
 	    System.exit(1);
 	}
 	
-	// DEBUG
-	System.out.println("DEBUG: playerGoesFirst: " + playerGoesFirst);
-	
 	if (playerGoesFirst) {
 	
             for (;!grid.isFull();) {
-	    
+
+                /*
+                 * We should cycle up to player
+                 * provides the coordinate of a
+                 * unset Cell.
+                 */
+
 	        // Ask for input ...
 		int rowIndex = 0;
 		int colIndex = 0;
@@ -125,10 +124,6 @@ public class Engine {
 		    rowIndex = Integer.parseInt(m.group(1));
 		    colIndex = Integer.parseInt(m.group(3));
 		}
-		
-		// DEBUG:
-		System.out.println("DEBUG: rowIndex, " + rowIndex);
-		System.out.println("DEBUG: colIndex, " + colIndex);
 		
 		// Update table with
 		// player's choice ...
@@ -145,14 +140,11 @@ public class Engine {
 		// win ...
 		Coordinate crucialCoordinate = findCrucialCoordinateFor(player.getFigure());
 		
-		
 		// If so, set the opponent's
 		// figure at that cell ...
 		if (crucialCoordinate != null) {
 		    grid.set(crucialCoordinate, opponentFigure);
 		}
-		
-		
 		
 		// else, find, if any,
 		// the Cell that once set
@@ -165,14 +157,12 @@ public class Engine {
 		    grid.set(crucialCoordinate, opponentFigure);   
 		}
 		
-		
 		// else, set a Cell
 		// on the center of
 		// the Grid ...
 		else if (grid.get(new Coordinate(1,1)).isUnset()) {
 		    grid.set(new Coordinate(1,1), opponentFigure);
 		}
-		
 		
 		// else, make a
 		// random choice ...
@@ -192,7 +182,6 @@ public class Engine {
 		
 		if (anyWinningPathFor(opponentFigure)) {playerLoses(); return;}
 		
-		
 	    }
 	    
 	} else {
@@ -205,13 +194,11 @@ public class Engine {
 		// lose ...
 		Coordinate crucialCoordinate = findCrucialCoordinateFor(opponentFigure);
 		
-		
 		// If so, set the opponent
 		// figure at that cell ...
 		if (crucialCoordinate != null) {
 		    grid.set(crucialCoordinate, opponentFigure);
 		}
-		
 		
 		// else, set one of Cells
 		// once the corner ...
@@ -224,7 +211,6 @@ public class Engine {
 		} else if (grid.get(new Coordinate(2,2)).isUnset()) {
 		   grid.set(new Coordinate(2,2), opponentFigure);
 		}
-		
 		
 		// else make a random choice...
 	        else {
@@ -242,7 +228,13 @@ public class Engine {
 		System.out.println(grid);
 		
 		if (anyWinningPathFor(opponentFigure)) {playerLoses(); return;}
-		
+	
+                /*
+                 * We should cycle of to the
+                 * time player provides the
+                 * coordinate of a unset Cell.
+                 */
+	
                 // Ask for input ...
 		int rowIndex = 0;
 		int colIndex = 0;
@@ -254,22 +246,22 @@ public class Engine {
 		    colIndex = Integer.parseInt(m.group(3));
 		}
 		
-		// DEBUG
-		System.out.println("DEBUG: rowIndex, " + rowIndex);
-		System.out.println("DEBUG: colIndex, " + colIndex);
-		
 		// Update table with
 		// player's choice ...
 		grid.set(new Coordinate(rowIndex-1,colIndex-1), player.getFigure());
 		
 		// Print current state of grid ...
-		System.out.println(grid);
+		System.out.print(grid + "\r");
 		
 		if (anyWinningPathFor(player.getFigure())) {playerWins(); return;}
 		
 	    }
 	    
 	}
+
+        // If we reach this point,
+        // no one has won ...
+        noOneWins();
     
     }
 
