@@ -63,7 +63,11 @@ It has been designed and written using the object oriented paradigm.
 
 
 + Improving documentation and writing
-*javadoc* features.
+*javadoc* features -- be accurate
+about design choices (*why you chose
+to write a `Cross` class?, why using
+a HashMap instead of a double-d array?,
+...*)
 
 #### DOTO
 
