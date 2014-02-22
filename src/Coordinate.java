@@ -1,4 +1,7 @@
-public class Coordinate extends Pair<Integer> implements Comparable<Coordinate> {
+public class Coordinate
+   extends Pair<Integer>
+   implements Comparable<Coordinate>
+{
 
     public Coordinate(Integer x, Integer y) {
         super(x,y);

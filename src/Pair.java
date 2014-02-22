@@ -14,12 +14,15 @@ public abstract class Pair<T> {
 	    return false;
 	}
     }
-    
+
+    // Return a text representation of this matrix ...    
     @Override
     public String toString() {
         return "(" + left + "," + right + ")";
     }
 
+    // Return a unique hashcode for
+    // this object ...
     @Override
     public int hashCode() {
         return toString().hashCode();
@@ -29,3 +32,4 @@ public abstract class Pair<T> {
     public final T right;
 
 }
+

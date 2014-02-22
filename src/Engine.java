@@ -2,12 +2,6 @@ import java.util.*;
 import java.util.regex.*;
 import java.io.*;
 
-/*
- * You have instanciated
- * Console, though you don't
- * need it. Fix code!
- */
-
 public class Engine {
 
     public Engine() {
@@ -15,7 +9,9 @@ public class Engine {
 	this.grid = new Grid();
 	this.opponentFigure = new Circle();
     }
-    
+
+    // Find, if any, a Coordinate that will make
+    // the owner of Figure f the winner of this match ...    
     public Coordinate findCrucialCoordinateFor(Figure f) {
     
         if (anyWinningPathFor(f)) {return null;}
@@ -44,7 +40,8 @@ public class Engine {
 	
 	return null;
     }
-    
+   
+    // Return true if there's any winning path for Figure f ... 
     public boolean anyWinningPathFor(Figure f) {
         
 	boolean out = false;
@@ -104,26 +101,19 @@ public class Engine {
 	    playerGoesFirst = false;
 	}
 	
-	Console c = System.console();
-	if (c == null) {
-	    System.err.println("No console found.");
-	    System.exit(1);
-	}
-	
 	if (playerGoesFirst) {
 	
 	    System.out.println(player + " goes first.");
 	
             for (;!grid.isFull();) {
 
-	        // Ask for input ...
 		int rowIndex = 0;
 		int colIndex = 0;
 		
 		for (;;) {
 
 		    System.out.print("Type coordinate of cell "
-		    + "you want to set (row[1-3] col[1-3]):\n"
+		    + "you want to set (\"row[1-3], col[1-3]\"):\n"
 		    + ">>> ");
 		    
 		    Scanner in = new Scanner(System.in);
@@ -131,7 +121,7 @@ public class Engine {
 		    
 		    if (in.hasNextLine()) {
 		        lineBuffer =
-			new Scanner(in.nextLine()).useDelimiter("[\\s,;\\-]+");
+			new Scanner(in.nextLine()).useDelimiter("[\\s,;\\-()]+");
 	            } else {
 		        System.err.println("\n<<<**Interpreting keyboard "
 			+ "signal as EOF. Bye.**");
@@ -164,11 +154,6 @@ public class Engine {
 		// Update table with
 		// player's choice ...
 		grid.set(new Coordinate(rowIndex-1,colIndex-1), player.getFigure());
-		
-		/*
-		// Print current state of grid ...
-		System.out.println(grid);
-		*/
 		
 		if (anyWinningPathFor(player.getFigure())) {playerWins(); return;}
 		
@@ -270,14 +255,7 @@ public class Engine {
 		System.out.println(grid);
 		
 		if (anyWinningPathFor(opponentFigure)) {playerLoses(); return;}
-	
-                /*
-                 * We should cycle of to the
-                 * time player provides the
-                 * coordinate of a unset Cell.
-                 */
-	
-                // Ask for input ...
+
 		int rowIndex = 0;
 		int colIndex = 0;
 
@@ -292,7 +270,7 @@ public class Engine {
 		    
 		    if (in.hasNextLine()) {
 		        lineBuffer =
-			new Scanner(in.nextLine()).useDelimiter("[\\s,;\\-]+");
+			new Scanner(in.nextLine()).useDelimiter("[\\s,;\\-()]+");
 	            } else {
 		        System.err.println("\n<<<**Interpreting keyboard "
 			+ "signal as EOF. Bye.**");
@@ -326,11 +304,6 @@ public class Engine {
 		// player's choice ...
 		grid.set(new Coordinate(rowIndex-1,colIndex-1), player.getFigure());
 		
-		/*
-		// Print current state of grid ...
-		System.out.print(grid + "\r");
-		*/
-		
 		if (anyWinningPathFor(player.getFigure())) {playerWins(); return;}
 		
 	    }
@@ -348,3 +321,4 @@ public class Engine {
     private Figure opponentFigure;
 
 }
+

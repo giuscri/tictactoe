@@ -1,6 +1,9 @@
 import java.util.*;
 
-public class Grid extends HashMap<Coordinate,Cell> implements Iterable<Cell> {
+public class Grid
+   extends HashMap<Coordinate,Cell>
+   implements Iterable<Cell>
+{
 
     public Grid() {
     
@@ -12,11 +15,13 @@ public class Grid extends HashMap<Coordinate,Cell> implements Iterable<Cell> {
 	    }
 	}
     }
-    
+
+    // Set Figure f at Coordinate c ...    
     public boolean set(Coordinate c, Figure f) {
         return this.get(c).setFigure(f);
     }
-    
+   
+    // Return true if there's no room left ...
     public boolean isFull() {
         int counter = 0;
 	for (Cell c : this) {
@@ -64,7 +69,9 @@ public class Grid extends HashMap<Coordinate,Cell> implements Iterable<Cell> {
 	};
     
     }
-    
+   
+    // Return a text representation of
+    // this matrix ... 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -87,3 +94,4 @@ public class Grid extends HashMap<Coordinate,Cell> implements Iterable<Cell> {
     }
  
 }
+

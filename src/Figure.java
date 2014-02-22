@@ -12,7 +12,8 @@ public abstract class Figure {
 	    return false;
 	}
     }
-    
+
+    // Get the 'value' that represents this figure ...
     public String getValue() {
         return value;
     }
@@ -25,3 +26,4 @@ public abstract class Figure {
     private String value;
 
 }
+
