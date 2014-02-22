@@ -4,7 +4,44 @@ This project consists of a simple environment for playing the famous game of *Ti
 
 It has been designed and written using the object oriented paradigm.
 
-**Sample**:
+## Design note:
+
+Follows a list of classes written, such that design choices
+might be clearer.
+
++ `Figure.java` represents the figures that can be
+drawn in the TicTacToe table.
++ `Circle.java` and `Cross.java` inherit from `Figure`
+adding no functionality. They've been written
+only for a question of naming objects what they really
+represents. They're made by just few lines indeed.
++ `Pair.java` is a *naif* implementation of a
+tuple of size 2 in Java.
++ `Coordinate.java` inherit from `Pair<Integer>`.
+It will be used for representing, informally
+speaking, the latitude and longitude of the `Grid`.
++ `Cell.java` is the sigle unit of `Grid`. In fact,
+`Grid` is a 3x3 matrix of `Cell`'s.
++ `Grid.java` is a 3x3 matrix of `Cell`'s. Few notes
+about the choice of using the `HashTable` are required:
+main reason was that I wanted to use a `Coordinate` to `Cell`
+map, since I found that more object-oriented like; by the way
+I know that might sound a bit overkill, since I could have
+used a double dimensional array of `Cell`'s, and building a
+function for getting the single `Cell` by providing a pair
+of `int`'s. I need to choose only one solution and I decided
+to use a `HashMap`.
++ `Player.java` represents the user who's playing
+the game against the computer (the *cpu*).
++ `Engine.java` is the *core* of the game. It contains
+reference to the `Grid` that's used and to the `Player`
+who's playing the match. `Engine` takes care of keeping
+update the `Grid`, parsing the input provided from `Player`,
+and checking the `Grid` such that it knows if the match
+has a winner.
++ `Main.java` wraps only the `main()` method.
+
+## Sample:
 
     $ git clone https://github.com/giuscri/tictactoe.git
     $ cd tictactoe
