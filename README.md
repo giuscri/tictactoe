@@ -22,7 +22,7 @@ It will be used for representing, **informally**
 speaking, the latitude and longitude of the `Grid`.
 + `Cell.java` is the sigle unit of `Grid` -- that is
 a 3x3 matrix of `Cell`'s.
-+ `Grid.java` is a 3x3 matrix of `Cell`'s. Few notes
++ `Grid.java` is a 3x3 matrix of `Cell`'s. A few notes
 about the choice of using `HashTable` are required:
 main reason was that I wanted to use a '*`Coordinate` to `Cell`
 map*': I found it more object-oriented-like. Anyway
