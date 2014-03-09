@@ -4,6 +4,8 @@ This project consists of a simple environment for playing the famous game of *Ti
 
 It has been designed and written using the object oriented paradigm.
 
+(I'm trying Travis CI with this project ...)
+
 ## Design note:
 
 Follows a list of classes written, such that design choices
